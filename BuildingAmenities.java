@@ -1,0 +1,5 @@
+package project;
+
+public enum BuildingAmenities {
+	CONCIERGE, DOORMAN, ELEVATOR, GYM, LAUNDRYROOM, PARKING, PETSALLOWED, SWIMMINGPOOL, VERIZONFIOS
+}
