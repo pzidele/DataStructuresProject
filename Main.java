@@ -17,6 +17,9 @@ public class Main {
 		// ??
 		ArrayList<Property> properties = new ArrayList<Property>();
 		
+		ArrayList<Agency> agencies = new ArrayList<Agency>();
+		ArrayList<Agent> agents= new ArrayList<Agent>();
+		
 		int choice = 0;
 
 		while (choice != 14) {
@@ -28,8 +31,10 @@ public class Main {
 				addProperty(keyboard, properties);
 				break;
 			case 2:
+				addRealEstateAgency(keyboard, agencies);	
 				break;
 			case 3:
+				addRealEstateAgent(keyboard, agents);
 				break;
 
 			case 4:
@@ -117,7 +122,54 @@ public class Main {
 
 		properties.add(property);
 	}
-	
+	public static void addRealEstateAgency(Scanner keyboard, ArrayList<Agency> agencies){
+		keyboard.nextLine();
+
+		System.out.print("Enter agency ID: ");
+		int agencyID = keyboard.nextInt();
+		
+		System.out.print("\nEnter name: ");
+		String name = keyboard.nextLine();
+		
+		
+		System.out.print("\nEnter addressID: ");
+		int addressID = keyboard.nextInt();
+
+		System.out.println("\nEnter phone number: ");
+		String phoneNumber = keyboard.nextLine();
+
+		System.out.println("/nEnter license number: ");
+		String LicenseNumber = keyboard.nextLine();
+
+		Agency agency = new Agency(agencyID, name, addressID, phoneNumber, LicenseNumber);
+		agencies.add(agency);
+
+	}
+
+	public static void addRealEstateAgent(Scanner keyboard, ArrayList<Agent> agents){
+		keyboard.nextLine();
+
+		System.out.print("Enter agent ID: ");
+		int agentID = keyboard.nextInt();
+		
+		System.out.print("\nEnter first name: ");
+		String fname = keyboard.nextLine();
+		
+		System.out.print("\nEnter last name: ");
+		String lname = keyboard.nextLine();
+		
+		
+		System.out.print("\nEnter agency ID: ");
+		int AgencyID = keyboard.nextInt();
+
+		System.out.println("/nEnter commisionRate: ");
+		double commissionRate = keyboard.nextDouble();
+
+		Agent agent = new Agent(agentID, fname, lname, AgencyID, commissionRate);
+		agents.add(agent);
+
+	}
+
 	public static LocalDate getDateListed(Scanner keyboard) {
 		System.out.println("Use format January 1, 2001");
 		boolean tryAgain;
