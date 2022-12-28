@@ -4,6 +4,7 @@ import java.text.Format;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
@@ -13,6 +14,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
+		// ??
+		ArrayList<Property> properties = new ArrayList<Property>();
 		
 		int choice = 0;
 
@@ -22,7 +25,7 @@ public class Main {
 
 			switch (choice) {
 			case 1:
-				addProperty(keyboard);
+				addProperty(keyboard, properties);
 				break;
 			case 2:
 				break;
@@ -30,7 +33,13 @@ public class Main {
 				break;
 
 			case 4:
-				
+				// can only do this if the array list has something in it
+				if (!properties.isEmpty()) {
+					assignPropertyToAgent(keyboard, properties);
+				}
+				else {
+					System.out.println("Error! You must add a property to assign an agent!\n");
+				}
 				break;
 
 			case 5:
@@ -45,6 +54,8 @@ public class Main {
 		System.exit(0);
 	}
 	
+	
+
 	public static int menu(Scanner keyboard) {
 		int choice = 0;
 		
@@ -78,7 +89,7 @@ public class Main {
 	}
 	
 	
-	public static void addProperty(Scanner keyboard) {
+	public static void addProperty(Scanner keyboard, ArrayList<Property> properties) {
 		keyboard.nextLine();
 
 		System.out.print("Enter property ID: ");
@@ -91,8 +102,9 @@ public class Main {
 		int agencyID = keyboard.nextInt();
 		
 		
-		System.out.print("\nEnter agent ID: ");
+		System.out.print("\nEnter agent ID. If no agent is assigned, enter 0: ");
 		int agentID = keyboard.nextInt();
+		// agent ID can be nothing here, will assign later
 
 		PropertyType propertyType = getPropertyType(keyboard);
 		
@@ -103,6 +115,7 @@ public class Main {
 		
 		Property property = new Property(propertyID, dateListed, agencyID, agentID, propertyType, propertyStatus, transactions);
 
+		properties.add(property);
 	}
 	
 	public static LocalDate getDateListed(Scanner keyboard) {
@@ -142,6 +155,64 @@ public class Main {
         return propertyStatus;
 	}
 	
+	public static void assignPropertyToAgent(Scanner keyboard, ArrayList<Property> properties) {
+
+		
+		// show list of properties to assign agent to
+		displayProperties(properties);
+		
+		// ask which one
+		System.out.println("Which property would you like to assign an agent to? Enter number: ");
+		int propertyNum = keyboard.nextInt();
+		Property property = properties.get(propertyNum-1);
+		
+		// get the agent id
+		System.out.println("Enter agent ID: ");
+		int agentID = keyboard.nextInt();
+		
+		// get property from array list, use setter to set agent
+		property.setAgentID(agentID);
+	}
+	
+	public static void displayProperties(ArrayList<Property> properties) {
+		for (int i = 0; i < properties.size(); i++) {
+			System.out.println((i+1) + ". " + properties.get(i));	
+		}
+	}
+	
+	public static void displayPropertiesInPriceRange(Scanner keyboard, ArrayList<Property>properties) {
+		// get the price range
+		// add to a list if it's in that price range
+		// display list, use displayProperties method
+		
+		// price is in Transaction class
+		// have to get it from there? 
+		// when add property, have to add it to the transaction stack
+		
+		
+		// loop through array os properties
+		for (int i = 0; i < properties.size(); i++) {
+			// if it's for sale
+			Property property = properties.get(i);
+			if (property.getPropertyStatus().equals(PropertyStatus.SALE)) {
+				// check if it's in price range
+				// have to get from the stack... everythingi s pushed on the stack so how do I know if it's the one I want
+				// have to make a new stack and peek at the top to see if it's the one I'm dealing with now
+				Stack<Transaction> newStack = new Stack<Transaction>();
+				Transaction currTran = property.getTransactions().peek();
+				
+				
+			//	Transaction price = property.getTransactions().get(i);
+			}
+		}
+		// property has a property status
+		// have to get the status
+		// if it's for sale then continue here
+	}
+	
+	public static void sortByZip(Scanner keyboard, ArrayList<Property> properties) {
+		
+	}
 	
 	
 	

@@ -1,9 +1,10 @@
 package project;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Stack;
 
-public class Property {
+public class Property implements Comparator {
 	
 	private int propertyID;
 	private LocalDate dateListed;
@@ -23,6 +24,47 @@ public class Property {
 		this.propertyStatus = propertyStatus;
 		this.transactions = transactions;
 	}
+	
+	
+	// 5, 6, 10
+	
+	public Property(int propertyID, LocalDate dateListed, int agencyID, PropertyType propertyType,
+			PropertyStatus propertyStatus, Stack<Transaction> transactions) {
+		
+		this(propertyID, dateListed, agencyID, 0, propertyType, propertyStatus, transactions);
+
+//		this.propertyID = propertyID;
+//		this.dateListed = dateListed;
+//		this.agencyID = agencyID;
+//		this.propertyType = propertyType;
+//		this.propertyStatus = propertyStatus;
+//		this.transactions = transactions;
+	}
+	
+	public Property(int propertyID, LocalDate dateListed, int agencyID, int agentID, PropertyType propertyType,
+			PropertyStatus propertyStatus, Stack<Transaction> transactions, int transactionID, LocalDate transactionDate,
+			double dollarAmount, TransactionType transactionType) {
+		this(propertyID, dateListed, agencyID, agentID, propertyType, propertyStatus, transactions);
+
+		Transaction transaction = new Transaction(transactionID, transactionDate, dollarAmount, transactionType, propertyID);
+		transactions.push(transaction);
+	}
+	
+	public void setAgentID(int agentID) {
+		this.agentID = agentID;
+	}
+	
+	public PropertyStatus getPropertyStatus() {
+		return propertyStatus;
+	}
+	
+	public Stack<Transaction> getTransactions() {
+		return transactions;
+	}
+	
+	
+	
+	//public void set
 
 	@Override
 	public String toString() {
@@ -44,6 +86,16 @@ public class Property {
 		builder.append("]");
 		return builder.toString();
 	}
+
+
+	@Override
+	public int compare(Object o1, Object o2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	
 
 	
 	
